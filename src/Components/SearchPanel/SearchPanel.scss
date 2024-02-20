@@ -1,0 +1,18 @@
+.searchPanel{
+    margin: 0 auto;
+    margin-bottom: 34px;
+    &__form{
+
+        height: 40px;
+        width: 938px;
+        border: 1px solid #d9d9d9;
+        border-radius: 4px;
+        padding-left: 12PX;
+     
+        &:focus{
+            border: 1px solid #1890FF;
+            outline: none;  
+        }
+    
+    }
+}

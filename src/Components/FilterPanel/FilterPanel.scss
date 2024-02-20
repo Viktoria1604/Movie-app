@@ -1,0 +1,21 @@
+.filterPanel{
+    width: 146px;
+    height: 53px;
+    margin-top: 13px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin: 13px auto;
+    box-sizing: border-box;
+    align-items: center;
+
+
+    &__text{
+        width: 64px;
+        height:53px;
+        box-sizing: border-box;
+        text-align: center;
+        padding-top: 19px;
+
+    }
+}
