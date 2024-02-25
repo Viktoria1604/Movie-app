@@ -1,46 +1,50 @@
-import React from 'react';
-import './App.scss';
-import '../SearchPanel/SearchPanel'
-import SearchPanel from '../SearchPanel/SearchPanel';
+import React from 'react'
+import './App.scss'
 import FilterPanel from '../FilterPanel/FilterPanel'
-import MovieList from '../MovieList/MovieList';
-import PagePagination from '../PagePagination/PagePagination';
-import { onSearch } from "../../../src/api";
-import { useState, useEffect } from "react";
-import { IGettedMovies } from '../../types/types';
-
-const defaultResults = {
-  results: [],
-  total_pages: 0,
-  total_results: 0,
-}
+import { useState, useEffect } from 'react'
+import { AppProvider } from '../../Context/AppContext'
+import { IGenres, IMovie } from '../../types/types'
+import { onGenres } from '../../api'
 
 const App = () => {
-  const [searchResponse, setSearchResponse] = useState<IGettedMovies>(defaultResults);
-  const [inputText, setInputText] = useState("");
+  const [movies, setMovies] = useState([])
+  const [genres, setGenres] = useState<IGenres[]>([])
+
+  const onRatingClick = (item: IMovie, rate: number) => {
+    let arrmovies = localStorage.getItem('movies')
+    let moviesArray: IMovie[] = arrmovies ? JSON.parse(arrmovies) : []
+    item.myrate = rate
+    const ratedMovie = moviesArray.findIndex((rated: IMovie) => rated.id === item.id)
+    ratedMovie < 0 ? moviesArray.push(item) : (moviesArray[ratedMovie].myrate = rate)
+    localStorage.setItem('movies', JSON.stringify(moviesArray))
+    setMovies(JSON.parse(localStorage.getItem('movies') || '[]'))
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      if (inputText.trim() !== "") {
-        const response = await onSearch(inputText);
-        setSearchResponse(response);
-        console.log(searchResponse)
-      } else {
-        setSearchResponse(defaultResults);
+      try {
+        const genreResponse = await onGenres()
+        setGenres(genreResponse.genres)
+      } catch (error) {
+        console.error('something goes wrong:', error)
       }
-    };
+    }
 
-    fetchData();
-  }, [inputText]);
+    fetchData()
+    setMovies(JSON.parse(localStorage.getItem('movies') || '[]'))
+  }, [])
+
+  const providerValue = {
+    onRatingClick,
+    genres,
+  }
 
   return (
-   <section className = "background">
-    <FilterPanel/>
-   <SearchPanel onInput={(text:string) => setInputText(text)}  />
-    <MovieList cardContent={searchResponse.results}/>
-    <PagePagination/>
-   </section>
-  );
+    <AppProvider value={providerValue}>
+      <section className="background">
+        <FilterPanel ratedMovies={movies} />
+      </section>
+    </AppProvider>
+  )
 }
-
-export default App;
+export default App

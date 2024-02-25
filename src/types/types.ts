@@ -7,10 +7,21 @@ export interface IMovie {
     vote_average: number;
     release_date: string;
     id:number;
+    myrate?: number;
 }
 
 export interface IGettedMovies{
     results: IMovie[];
     total_pages: number;
     total_results: number;
+}
+
+export interface IGettedGenres{
+    genres: IGenres[];
+
+}
+
+export interface IGenres{
+    id:number,
+    name:string
 }

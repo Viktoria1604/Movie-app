@@ -1,9 +1,17 @@
 .movieList{
-min-height:100vh;
+    width: 1010px;
+    background-color: #fff;
 padding-right: 65px;
 display: grid;
 grid-template-columns: 460px 460px;
-justify-content: space-between;
 row-gap: 36px;
+column-gap: 30px;
+
+@media (max-width:420px) {
+
+    width: 420px;
+    grid-template-columns: 400px;
+    
+}
 
 }

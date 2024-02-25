@@ -1,0 +1,28 @@
+.mainList {
+    display: flex;
+    width: 1010px;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width:420px) {
+
+      width: 420px;
+     
+      
+  }
+}
+
+.expander{
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 38px;
+   }
+  .emptyRespose{
+    display:flex;
+    justify-content: center;
+ 
+  }

@@ -1,15 +1,13 @@
-import React from "react";
-import "./SearchPanel.scss";
+import React from 'react'
+import './SearchPanel.scss'
 
-interface ISearchProps{
-onInput: (text:string)=>void
+interface ISearchProps {
+  onInput: (text: string) => void
 }
 
-const SearchPanel = ({onInput}:ISearchProps) => {
-  
-
+const SearchPanel = ({ onInput }: ISearchProps) => {
   return (
-    <form className="searchPanel">
+    <form className="searchPanel" onSubmit={(e) => e.preventDefault()}>
       <input
         className="searchPanel__form"
         placeholder="Type to search..."
@@ -17,8 +15,7 @@ const SearchPanel = ({onInput}:ISearchProps) => {
         onChange={(e) => onInput(e.target.value)}
       />
     </form>
-  );
-};
+  )
+}
 
-
-export default SearchPanel;
+export default SearchPanel
