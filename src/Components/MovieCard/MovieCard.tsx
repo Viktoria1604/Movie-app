@@ -26,14 +26,16 @@ const MovieCard = ({
   const { genres } = useContext(AppContext)
 
   const genreSelection = (ids: number[], arrGenre: IGenres[]) => {
-    return ids.map((id) => {
+    return ids.map(function(id) {
       for (let i = 0; i < arrGenre.length; i++) {
         if (arrGenre[i].id === id) {
-          return arrGenre[i].name
+          return arrGenre[i].name;
         }
       }
-    })
-  }
+
+      return ;
+    });
+  };
 
   const img_path = poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : notFound
 
